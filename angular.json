@@ -31,9 +31,12 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/bootstrap/dist/css/bootstrap.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -127,5 +130,8 @@
       }
     }
   },
-  "defaultProject": "TPYOUSFI"
+  "defaultProject": "TPYOUSFI",
+  "cli": {
+    "analytics": "c5e1e1d9-af14-4693-bd45-babf5f13db73"
+  }
 }

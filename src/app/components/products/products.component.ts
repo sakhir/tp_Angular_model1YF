@@ -2,7 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Product } from 'src/app/model/product.model';
 import { ProductsService } from 'src/app/services/products.service';
-import { AppDataState, DataStateEnum } from 'src/app/state/state';
+import {
+  ActionEvent,
+  AppDataState,
+  DataStateEnum,
+  ProductActionsTypes,
+} from 'src/app/state/state';
 import { catchError, map, startWith } from 'rxjs/operators';
 
 @Component({
@@ -66,7 +71,30 @@ export class ProductsComponent implements OnInit {
   }
   onDelete(p: Product) {
     this._productService.deleteProduct(p).subscribe((data) => {
-     this.getAllProduct();
+      this.getAllProduct();
     });
+  }
+
+  onActionEvent(event: ActionEvent) {
+    switch (event.type) {
+      case ProductActionsTypes.GET_ALL_PRODUCTS:
+        this.getAllProduct();
+        break;
+      case ProductActionsTypes.GET_SELECTED_PRODUCTS:
+        this.getSelectedProducts();
+        break;
+      case ProductActionsTypes.GET_AVAILABLE_PRODUCTS:
+        this.getAvailableProduct();
+        break;
+      case ProductActionsTypes.SEARCH_PRODUCTS:
+        this.onSearch(event.payload);
+        break;
+      case ProductActionsTypes.SELECT_PRODUCT:
+        this.onSelect(event.payload);
+        break;
+      case ProductActionsTypes.DELETE_PRODUCT:
+        this.onDelete(event.payload);
+        break;
+    }
   }
 }
